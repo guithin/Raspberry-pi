@@ -1,0 +1,12 @@
+make
+sudo insmod servo.ko
+sudo mknod /dev/servo_dev c 210 0
+
+
+gcc user.c -o user
+./user %d
+
+%d:
+  0: servo stop
+  1: servo move(CW)
+  2: servo mode(CCW)
