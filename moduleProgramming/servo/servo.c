@@ -64,12 +64,14 @@ long servo_dev_write(struct file *pfile, unsigned int command, unsigned long arg
         if(temp >= 0 && temp <= 2){ //useable mode 0, 1, 2(0: stop, 1: cw, 2: ccw)
             servo_mode = temp; //set mode
 
-            if(temp){ // if mode is not stop setting timer
+            if(temp){ // if mode is not stop -> setting timer
                 mod_timer(&my_timer, jiffies + 2);
             }
+            printk("servo speed set done %d\n", temp);
         }
-
-        printk("servo speed set done %d\n", temp);
+        else{
+            printk("input err\n");
+        }
     }
     else{
         printk("Read fail\n");
@@ -115,8 +117,6 @@ int __init servo_init(void){
     if(gpio_direction_output(pin, 0) < 0){
         printk("gpio_direction_output fail\n");
     }
-    printk("HZ: %d\n", HZ);
-
     return 0;
 }
 
