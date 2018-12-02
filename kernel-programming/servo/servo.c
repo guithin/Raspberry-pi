@@ -27,12 +27,10 @@ int pin = 18;
 struct timer_list my_timer;
 
 void servo_control_func(unsigned long arg){
+    mod_timer(&my_timer, jiffies + 2); //call function next 20ms after
     gpio_set_value(pin, 1);
-    mdelay(servo_mode);
+    udelay(servo_mode ? servo_mode * 995 : 1480);
     gpio_set_value(pin, 0);
-    if(servo_mode){ //if servo mode is stop -> stop timer
-        mod_timer(&my_timer, jiffies + 2);
-    }
     return;
 }
 
@@ -56,21 +54,16 @@ long servo_dev_write(struct file *pfile, unsigned int command, unsigned long arg
         printk("copy_from_user: %s\n", msg);
 
         //parse int from msg
-        int temp = 0, i = 0;
-        while(msg[i]){
+        int temp = 0, i = -1;
+        while(msg[++i]){
             temp *= 10; temp += msg[i] - '0';
-            i++;
         }
         if(temp >= 0 && temp <= 2){ //useable mode 0, 1, 2(0: stop, 1: cw, 2: ccw)
             servo_mode = temp; //set mode
-
-            if(temp){ // if mode is not stop -> setting timer
-                mod_timer(&my_timer, jiffies + 2);
-            }
-            printk("servo speed set done %d\n", temp);
+            printk("servo move mode: %d\n", servo_mode);
         }
         else{
-            printk("input err\n");
+            printk("parsed number err %d\n", temp);
         }
     }
     else{
@@ -100,8 +93,7 @@ int __init servo_init(void){
     init_timer(&my_timer);
 
     my_timer.function = servo_control_func;
-    my_timer.data = &servo_mode;
-    my_timer.expires = jiffies + 2;
+    my_timer.expires = jiffies + 2; //moter move start 20ms later
 
     add_timer(&my_timer);
 
