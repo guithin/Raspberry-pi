@@ -1,0 +1,12 @@
+make
+sudo insmod touch.ko
+sudo mknod /dev/tsensor_dev c 210 0
+
+
+gcc user.c -o user
+./user
+
+When touch sensor is in touch, print 1
+else print 0
+
+If the sensor operates as binary output, it can also be used for other sensors.
