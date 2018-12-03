@@ -9,14 +9,12 @@
 
 #define MY_T_SENSOR 100
 #define MY_T_SENSOR_READ _IOR( MY_T_SENSOR, 0, int )
-#define MY_T_SENSOR_WRITE _IOW( MY_T_SENSOR, 1, int )
 
 MODULE_LICENSE("GPL");
 
 struct cdev my_cdev;
 dev_t devno;
 int major = 211;
-int tsensor_mode;
 int pin = 17;
 
 int tsensor_dev_open(struct inode *pinode, struct file *pfile){
