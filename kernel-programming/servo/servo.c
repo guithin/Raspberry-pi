@@ -22,6 +22,7 @@ dev_t devno;
 int major = 210;
 char *msg = NULL;
 int servo_mode;
+int delay_time[3] = { 1500, 1000, 2000 };
 int pin = 18;
 
 struct timer_list my_timer;
@@ -29,7 +30,7 @@ struct timer_list my_timer;
 void servo_control_func(unsigned long arg){
     mod_timer(&my_timer, jiffies + 2); //call function next 20ms after
     gpio_set_value(pin, 1);
-    udelay(servo_mode ? servo_mode * 995 : 1480);
+    udelay(delay_time[servo_mode]);
     gpio_set_value(pin, 0);
     return;
 }
