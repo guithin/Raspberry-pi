@@ -82,9 +82,10 @@ struct file_operations fop = {
 
 int __init servo_init(void){
     printk("INIT servo moter\n");
-
-    devno = MKDEV(major, 0);
-    register_chrdev_region(devno, 1, "servo_dev");
+    
+    alloc_chrdev_region(&devno, 0, 2, "servo_dev");
+    major = MAJOR(devno);
+    
     cdev_init(&my_cdev, &fop);
     my_cdev.owner = THIS_MODULE;
 
