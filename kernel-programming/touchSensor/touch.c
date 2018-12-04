@@ -14,7 +14,7 @@ MODULE_LICENSE("GPL");
 
 struct cdev my_cdev;
 dev_t devno;
-int major = 211;
+int major;
 int pin = 17;
 
 int tsensor_dev_open(struct inode *pinode, struct file *pfile){
@@ -46,8 +46,9 @@ struct file_operations fop = {
 int __init tsensor_init(void){
     printk("INIT tsensor moter\n");
 
-    devno = MKDEV(major, 0);
-    register_chrdev_region(devno, 1, "tsensor_dev");
+    alloc_chrdev_region(&devno, 0, 2, "tsensor_dev");
+    major = MAJOR(devno);
+    
     cdev_init(&my_cdev, &fop);
     my_cdev.owner = THIS_MODULE;
 
