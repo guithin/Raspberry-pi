@@ -11,6 +11,7 @@
 #define MY_LED_WRITE _IOW( MY_LED_NUM, 1, int )
 
 MODULE_LICENSE("GPL");
+MODULE_AUTHOR("guithin(JinwonJung)");
 
 struct cdev my_cdev;
 dev_t devno;
