@@ -14,6 +14,7 @@
 #define MY_SERVO_WRITE _IOW ( MY_SERVO_NUMBER, 1, int )
 
 MODULE_LICENSE("GPL");
+MODULE_AUTHOR("guithin(JinwonJung)");
 
 extern unsigned long volatile __jiffy_data jiffies;
 
