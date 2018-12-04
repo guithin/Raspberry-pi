@@ -11,6 +11,7 @@
 #define MY_T_SENSOR_READ _IOR( MY_T_SENSOR, 0, int )
 
 MODULE_LICENSE("GPL");
+MODULE_AUTHOR("guithin(JinwonJung)");
 
 struct cdev my_cdev;
 dev_t devno;
