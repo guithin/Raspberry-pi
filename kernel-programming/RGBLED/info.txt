@@ -1,0 +1,19 @@
+make
+sudo insmod touch.ko
+sudo mknod /dev/tsensor_dev c MAJOR 0
+
+
+gcc user.c -o user
+./user %c%d
+  %c: R, G, B
+  %d: 0, 1 (0: off, 1: on)
+
+ex) ./user R1
+ex) ./user R0 G1
+
+my RGB LED info
+
+pin0: VCC -> input vcc
+pin1: RED -> input low(on) high(off)
+pin2: GREEN -> input low(on) high(off)
+pin3: BLUE -> input low(on) high(off)
