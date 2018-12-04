@@ -24,7 +24,7 @@ int main(int argc, char **argv){
     }
     else{
         scanf("%s", buf);
-    ioctl(fd, MY_LED_WRITE, buf);
+        ioctl(fd, MY_LED_WRITE, buf);
     }
     return 0;
 }
