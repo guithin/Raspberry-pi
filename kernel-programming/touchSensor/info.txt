@@ -1,6 +1,6 @@
 make
 sudo insmod touch.ko
-sudo mknod /dev/tsensor_dev c 210 0
+sudo mknod /dev/tsensor_dev c MAJOR 0
 
 
 gcc user.c -o user
