@@ -23,7 +23,7 @@ dev_t devno;
 int major = 210;
 char *msg = NULL;
 int servo_mode;
-int delay_time[3] = { 1500, 1000, 2000 };
+int delay_time[3] = { 1480, 1000, 2000 };
 int pin = 18;
 
 struct timer_list my_timer;
